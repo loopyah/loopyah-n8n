@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-loopyah.loopyahTrigger",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Sales", "Marketing & Content"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://loopyah.com/resources/connect-n8n"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://loopyah.com/resources/connect-n8n"
+			}
+		]
+	}
+}

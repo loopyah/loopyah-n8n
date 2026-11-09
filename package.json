@@ -1,0 +1,57 @@
+{
+	"name": "n8n-nodes-loopyah",
+	"version": "0.1.0",
+	"description": "Start n8n workflows when something happens in Loopyah: new orders, check-ins, contacts, refunds, point-of-sale sales, reviews, sponsor applications and paid payouts.",
+	"license": "MIT",
+	"homepage": "https://loopyah.com/resources/connect-n8n",
+	"keywords": [
+		"n8n-community-node-package",
+		"loopyah",
+		"events",
+		"tickets"
+	],
+	"author": {
+		"name": "Loopyah",
+		"email": "support@loopyah.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/loopyah/loopyah-n8n.git"
+	},
+	"bugs": {
+		"url": "https://github.com/loopyah/loopyah-n8n/issues"
+	},
+	"scripts": {
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"test": "n8n-node build && node --test test/*.test.mjs",
+		"release": "n8n-node release",
+		"prepublishOnly": "node scripts/check-live.mjs && n8n-node prerelease"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"strict": true,
+		"credentials": [
+			"dist/credentials/LoopyahOAuth2Api.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/Loopyah/LoopyahTrigger.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "0.55.6",
+		"eslint": "9.32.0",
+		"prettier": "3.6.2",
+		"release-it": "^21.1.0",
+		"typescript": "5.9.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}
