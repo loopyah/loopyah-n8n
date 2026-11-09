@@ -28,8 +28,9 @@ Starts a workflow for each new record, across every event you run.
 | Payout Paid | Loopyah sends a payout to your bank |
 
 - **Organizer:** leave it empty to use your own account, or pick an organizer whose team you're on. Your team role decides what you can read.
-- **First run:** a workflow switched on for the first time starts from your newest record and doesn't replay your history.
-- **Each check** reads up to 100 new records. **Fetch Test Event** shows your latest record.
+- **First run:** a workflow switched on for the first time starts from your newest record and doesn't replay your history. Changing the trigger, the Organizer or the Loopyah account starts fresh the same way.
+- **Each check** reads up to 100 new records, each starting the workflow once, oldest first. It also looks back an hour behind the newest record it has seen, so a record that shows up late, such as a contact dated by the purchase it came from, still starts the workflow. **Fetch Test Event** shows your latest record.
+- **Errors** show Loopyah's own message with its status code.
 
 ## Example workflows
 
