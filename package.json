@@ -21,6 +21,10 @@
 	"bugs": {
 		"url": "https://github.com/loopyah/loopyah-n8n/issues"
 	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
 	"scripts": {
 		"build": "n8n-node build",
 		"build:watch": "tsc --watch",
