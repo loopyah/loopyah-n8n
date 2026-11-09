@@ -1,7 +1,7 @@
 import type { Icon, ICredentialType, INodeProperties } from 'n8n-workflow';
 
-// The dev API until the first release. scripts/check-live.mjs stops a publish that still points here.
-const API_URL = 'https://api-dev.loopyah.com';
+// Set it to https://api-dev.loopyah.com to test against dev locally. scripts/check-live.mjs stops a publish that points anywhere else.
+const API_URL = 'https://api.loopyah.com';
 
 // n8n registers itself with Loopyah on Connect, the way Claude and ChatGPT do, so there's no client ID or secret to enter.
 export class LoopyahOAuth2Api implements ICredentialType {
