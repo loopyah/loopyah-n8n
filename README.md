@@ -35,6 +35,11 @@ Starts a workflow for each new record, across every event you run.
 
 Tested with n8n 2.46.
 
+## Resources
+
+- [Connect n8n to Loopyah](https://loopyah.com/resources/connect-n8n)
+- [n8n community nodes](https://docs.n8n.io/integrations/community-nodes/installation/)
+
 ## Development
 
 n8n needs Node 24 (`.nvmrc`).

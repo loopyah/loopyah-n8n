@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-loopyah",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Start n8n workflows when something happens in Loopyah: new orders, check-ins, contacts, refunds, point-of-sale sales, reviews, sponsor applications and paid payouts.",
 	"license": "MIT",
 	"homepage": "https://loopyah.com/resources/connect-n8n",
