@@ -31,6 +31,15 @@ Starts a workflow for each new record, across every event you run.
 - **First run:** a workflow switched on for the first time starts from your newest record and doesn't replay your history.
 - **Each check** reads up to 100 new records. **Fetch Test Event** shows your latest record.
 
+## Example workflows
+
+- **Orders to a spreadsheet:** Loopyah Trigger on New Order, then Google Sheets, Append Row, mapping the buyer, event and amount.
+- **Welcome guests at the door:** Loopyah Trigger on New Check-In, then Slack, Send Message to your event channel.
+- **Contacts to your CRM:** Loopyah Trigger on New Contact, then HubSpot, Create or Update Contact with the email and name.
+- **Refund alerts:** Loopyah Trigger on New Refund, then Gmail, Send Email to your finance inbox.
+
+Amounts arrive in cents, such as `amountCents: 2500` for 25.00, and times in UTC.
+
 ## Compatibility
 
 Tested with n8n 2.46.
