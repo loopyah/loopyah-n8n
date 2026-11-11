@@ -91,7 +91,7 @@ The API address is `API_URL` in `credentials/LoopyahOAuth2Api.credentials.ts`. P
 
 - `credentials/LoopyahOAuth2Api.credentials.ts`: sign-in
 - `nodes/Loopyah/LoopyahTrigger.node.ts`: the trigger, its Organizer list and polling
-- `nodes/Loopyah/lists.ts`: the eight Loopyah lists, and where each keeps its rows, IDs and times
+- `nodes/Loopyah/lists.ts`: the nine Loopyah lists, and where each keeps its rows, IDs and times
 - `nodes/Loopyah/newRecords.ts`: which records are new since the last check
 - `test/`: tests against the built package, with Loopyah's API faked
 
