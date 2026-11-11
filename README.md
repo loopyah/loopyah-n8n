@@ -20,9 +20,10 @@ Starts a workflow for each new record, across every event you run.
 | --- | --- |
 | New Check-In | A guest is let in, by a ticket scan or a check-in by hand |
 | New Contact | Someone is added to your contacts |
+| New Customer Refund | A customer's own refund request is paid back to them |
 | New Order | A customer pays for tickets |
+| New Organizer Refund | A refund you issued is paid back to a customer |
 | New Point-of-Sale Sale | You take an in-person sale with Tap to Pay |
-| New Refund | A refund is paid back to a customer |
 | New Review | A guest reviews one of your events |
 | New Sponsor Application | A sponsor applies to one of your events |
 | Payout Paid | Loopyah sends a payout to your bank |
@@ -32,12 +33,20 @@ Starts a workflow for each new record, across every event you run.
 - **Each check** reads up to 100 new records, each starting the workflow once, oldest first. It also looks back an hour behind the newest record it has seen, so a record that shows up late, such as a contact dated by the purchase it came from, still starts the workflow. **Fetch Test Event** shows your latest record.
 - **Errors** show Loopyah's own message with its status code.
 
+## Loopyah Instant Trigger
+
+Starts a workflow the moment something happens, with the same triggers, Organizer field and record fields as the Loopyah Trigger. Activating the workflow tells Loopyah where to send, and deactivating it tells Loopyah to stop. Nothing is checked on a schedule, so a rush of orders or check-ins is never cut short and a record that shows up late is never missed.
+
+- Loopyah needs to reach your n8n at a public https address. n8n on your own computer, on `localhost` or behind a firewall can't receive sends, so use the Loopyah Trigger there.
+- Loopyah signs every send, and the trigger refuses anything Loopyah didn't sign.
+- **Listen for Test Event** waits for the next real record.
+
 ## Example workflows
 
 - **Orders to a spreadsheet:** Loopyah Trigger on New Order, then Google Sheets, Append Row, mapping the buyer, event and amount.
 - **Welcome guests at the door:** Loopyah Trigger on New Check-In, then Slack, Send Message to your event channel.
 - **Contacts to your CRM:** Loopyah Trigger on New Contact, then HubSpot, Create or Update Contact with the email and name.
-- **Refund alerts:** Loopyah Trigger on New Refund, then Gmail, Send Email to your finance inbox.
+- **Refund alerts:** Loopyah Trigger on New Organizer Refund, then Gmail, Send Email to your finance inbox.
 
 Amounts arrive in cents, such as `amountCents: 2500` for 25.00, and times in UTC.
 

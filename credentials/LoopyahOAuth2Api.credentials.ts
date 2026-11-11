@@ -7,7 +7,7 @@ export class LoopyahOAuth2Api implements ICredentialType {
 
 	extends = ['oAuth2Api'];
 
-	// Only the Loopyah Trigger can use this credential, so n8n's HTTP Request node can't send its token to another website.
+	// Only Loopyah's own triggers can use this credential, so n8n's HTTP Request node can't send its token to another website.
 	restrictToSupportedNodes = true as const;
 
 	displayName = 'Loopyah OAuth2 API';

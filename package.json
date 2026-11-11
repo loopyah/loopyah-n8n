@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-loopyah",
-	"version": "0.1.3",
+	"version": "0.2.0",
 	"description": "Start n8n workflows when something happens in Loopyah: new orders, check-ins, contacts, refunds, point-of-sale sales, reviews, sponsor applications and paid payouts.",
 	"license": "MIT",
 	"homepage": "https://loopyah.com/resources/connect-n8n",
@@ -45,7 +45,8 @@
 			"dist/credentials/LoopyahOAuth2Api.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/Loopyah/LoopyahTrigger.node.js"
+			"dist/nodes/Loopyah/LoopyahTrigger.node.js",
+			"dist/nodes/Loopyah/LoopyahInstantTrigger.node.js"
 		]
 	},
 	"devDependencies": {

@@ -1,58 +1,14 @@
 import type {
 	IDataObject,
-	ILoadOptionsFunctions,
 	INodeExecutionData,
-	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
 	IPollFunctions,
-	JsonObject,
 } from 'n8n-workflow';
-import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
-import { API_URL } from './api';
+import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 import { at, LISTS, type LoopyahList, recordTime } from './lists';
 import { MAX_PAGES, remember, type SeenState, takeNew, upgrade } from './newRecords';
-
-const CREDENTIAL = 'loopyahOAuth2Api';
-
-type Failed = { response?: { status?: number; data?: unknown }; cause?: unknown };
-
-// Loopyah explains a refusal as JSON { error } or as plain text. n8n would replace it with its own generic wording,
-// such as "Bad request", so Loopyah's text is passed on as the message, after the status code.
-const loopyahMessage = (error: Failed | undefined) => {
-	const response = error?.response;
-	const data = response?.data;
-	const text =
-		typeof data === 'string'
-			? data
-			: ((data as { error?: unknown; message?: unknown } | undefined)?.error ??
-				(data as { message?: unknown } | undefined)?.message);
-	if (typeof text !== 'string' || !text.trim() || text.trim().startsWith('<')) return undefined;
-	return response?.status ? `[${response.status}] ${text.trim()}` : text.trim();
-};
-
-const request = async function (
-	this: IPollFunctions | ILoadOptionsFunctions,
-	path: string,
-	qs: IDataObject = {},
-): Promise<IDataObject> {
-	// The address is fixed here, never read from the credential, so nothing saved there can send the token elsewhere.
-	try {
-		return (await this.helpers.httpRequestWithAuthentication.call(this, CREDENTIAL, {
-			method: 'GET',
-			url: `${API_URL}${path}`,
-			qs,
-			json: true,
-		})) as IDataObject;
-	} catch (error) {
-		// n8n hands back its own error with the request's error, and Loopyah's answer, inside it. Re-wrapping n8n's error
-		// would keep its wording, so the error inside it is wrapped again with Loopyah's message.
-		const inner = ((error as Failed).cause as Failed | undefined) ?? (error as Failed);
-		const message = loopyahMessage(inner) ?? loopyahMessage(error as Failed);
-		if (!message) throw new NodeApiError(this.getNode(), error as JsonObject);
-		throw new NodeApiError(this.getNode(), inner as JsonObject, { message });
-	}
-};
+import { CREDENTIAL, getOrganizers, request } from './request';
 
 const readPage = async function (
 	this: IPollFunctions,
@@ -118,16 +74,7 @@ export class LoopyahTrigger implements INodeType {
 	};
 
 	methods = {
-		loadOptions: {
-			async getOrganizers(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				const teams = at(await request.call(this, '/data/my-teams'), 'data');
-				const organizers = (Array.isArray(teams) ? (teams as IDataObject[]) : []).map((team) => ({
-					name: String(at(team, 'creator.name') ?? ''),
-					value: String(at(team, 'creator.id') ?? ''),
-				}));
-				return [{ name: 'My Account', value: '' }, ...organizers];
-			},
-		},
+		loadOptions: { getOrganizers },
 	};
 
 	async poll(this: IPollFunctions): Promise<INodeExecutionData[][] | null> {
